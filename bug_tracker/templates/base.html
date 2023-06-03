@@ -1,0 +1,227 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Modernize Free</title>
+        <link
+            rel="shortcut icon"
+            type="image/png"
+            href="{% static '/images/logos/favicon.png' %} "
+        />
+        <link rel="stylesheet" href={% static "/css/styles.min.css" %} />
+    </head>
+
+    <body>
+        <!--  Body Wrapper -->
+        <div
+            class="page-wrapper"
+            id="main-wrapper"
+            data-layout="vertical"
+            data-navbarbg="skin6"
+            data-sidebartype="full"
+            data-sidebar-position="fixed"
+            data-header-position="fixed"
+        >
+            <!-- Sidebar Start -->
+            {% include "partials/_sidebar.html" %}
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <ul class="navbar-nav pe-4">
+                            <li class="nav-item d-block d-xl-none">
+                                <a
+                                    class="nav-link sidebartoggler nav-icon-hover"
+                                    id="headerCollapse"
+                                    href="javascript:void(0)"
+                                >
+                                    <i class="ti ti-menu-2"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item"></li>
+                        </ul>
+                        <div class="navbar-nav"></div>
+                        <nav aria-label="breadcrumb">
+                            <ol
+                                class="px-0 pt-1 pb-0 mb-0 bg-transparent breadcrumb me-sm-6 text-white"
+                            >
+                                <li class="text-sm breadcrumb-item">
+                                    <a class="opacity-8" href="#">Home</a>
+                                </li>
+                                <li
+                                    class="text-sm breadcrumb-item active"
+                                    aria-current="page"
+                                >
+                                    Dashboard
+                                </li>
+                            </ol>
+                            <h6 class="mb-0 font-weight-bolder">Dashboard</h6>
+                        </nav>
+
+                        <div
+                            class="navbar-collapse justify-content-end px-0"
+                            id="navbarNav"
+                        >
+                            <ul
+                                class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
+                            >
+                                <li>
+                                    <div class="input-group me-3">
+                                        <input
+                                            style="height: 37px"
+                                            type="search"
+                                            class="form-control align-self-center"
+                                            placeholder="Search  Projects..."
+                                            aria-label="Search"
+                                        />
+                                        <span
+                                            class="input-group-text text-muted"
+                                        >
+                                            <span
+                                                class="tt"
+                                                data-bs-placement="bottom"
+                                                title="Search"
+                                            >
+                                                <i class="ti ti-search"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link nav-icon-hover"
+                                        href="javascript:void(0)"
+                                        id="drop2"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="ti ti-bell-ringing"></i>
+                                        <div
+                                            class="notification bg-primary rounded-circle"
+                                        ></div>
+                                    </a>
+
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                                        aria-labelledby="drop2"
+                                    >
+                                        <div class="message-body">
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i class="ti ti-user fs-6"></i>
+                                                <p class="mb-0 fs-3">
+                                                    My Profile
+                                                </p>
+                                            </a>
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">
+                                                    My Account
+                                                </p>
+                                            </a>
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i
+                                                    class="ti ti-list-check fs-6"
+                                                ></i>
+                                                <p class="mb-0 fs-3">My Task</p>
+                                            </a>
+                                            <a
+                                                href="./authentication-login.html"
+                                                class="btn btn-outline-primary mx-3 mt-2 d-block"
+                                                >Logout</a
+                                            >
+                                        </div>
+                                    </div>
+                                </li>
+                                <h6 class="pt-2">andualem</h6>
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link nav-icon-hover"
+                                        href="javascript:void(0)"
+                                        id="drop2"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <img
+                                            src={% static "/images/profile/user-1.jpg" %}
+                                            alt=""
+                                            width="35"
+                                            height="35"
+                                            class="rounded-circle"
+                                        />
+                                    </a>
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                                        aria-labelledby="drop2"
+                                    >
+                                        <div class="message-body">
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i class="ti ti-user fs-6"></i>
+                                                <p class="mb-0 fs-3">
+                                                    My Profile
+                                                </p>
+                                            </a>
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">
+                                                    My Account
+                                                </p>
+                                            </a>
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="d-flex align-items-center gap-2 dropdown-item"
+                                            >
+                                                <i
+                                                    class="ti ti-list-check fs-6"
+                                                ></i>
+                                                <p class="mb-0 fs-3">My Task</p>
+                                            </a>
+                                            <a
+                                                href="./authentication-login.html"
+                                                class="btn btn-outline-primary mx-3 mt-2 d-block"
+                                                >Logout</a
+                                            >
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+                <!--  Header End -->
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+
+        <script src={% static "/libs/jquery/dist/jquery.min.js" %}></script>
+        <script src={% static "/libs/bootstrap/dist/js/bootstrap.bundle.min.js" %}></script>
+        <script src={% static "/js/sidebarmenu.js" %}></script>
+        <script src={% static "/js/app.min.js" %}></script>
+        <script src={% static "/libs/apexcharts/dist/apexcharts.min.js" %}></script>
+        <script src={% static "/libs/simplebar/dist/simplebar.js" %}></script>
+        <script src={% static "/js/dashboard.js" %}></script>
+        <script>
+            const tooltips = document.querySelectorAll("tt");
+            tooltips.forEach((t) => {
+                new bootstrap.Tooltip(t);
+            });
+        </script>
+    </body>
+</html>
