@@ -17,11 +17,8 @@
             </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav
-            class="sidebar-nav scroll-sidebar d-flex flex-column"
-            data-simplebar=""
-        >
-            <ul id="sidebarnav">
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav" class="">
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
@@ -29,7 +26,7 @@
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
-                        href="./index.html"
+                        href="{% url 'index' %}"
                         aria-expanded="false"
                     >
                         <span>
@@ -42,6 +39,18 @@
                     <a
                         class="sidebar-link"
                         href="./index.html"
+                        aria-expanded="false"
+                    >
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="hide-menu">Manage Users</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a
+                        class="sidebar-link"
+                        href="{% url 'list_projects' %}"
                         aria-expanded="false"
                     >
                         <span>
@@ -79,8 +88,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="align-self-end">footer 2023</div>
         </nav>
+
         <!-- End Sidebar navigation -->
     </div>
     <!-- End Sidebar scroll-->

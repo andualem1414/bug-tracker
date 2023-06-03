@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+<!--break-->
+{% load static %} {% block content %}
+
+<div class="row">
+    <div class="col-md-7">
+        <h4 class="fw-semibold mb-4">Add Project</h4>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{% url 'create_project' %}">
+                    {% csrf_token %} {% for field in form %}
+                    <div
+                        class="form-group mb-3 {% if field.errors %} errors {% endif %}"
+                    >
+                        <label for="exampleFormControlInput1" class="form-label"
+                            >{{ field.label_tag }}</label
+                        >
+                        {{ field }} {{ field.errors }}
+                    </div>
+
+                    {% endfor %}
+
+                    <button class="btn btn-primary my-3" type="submit">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% comment %}
+<form action="{% url 'create_project' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+            >Project Name</label
+        >
+        <input
+            type="text"
+            name="name"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="New project name"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label"
+            >Project Description</label
+        >
+        <input
+            type="textarea"
+            name="description"
+            placeholder="Description"
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+        />
+    </div>
+    <input type="submit" class="btn btn-primary" value="Add Project" />
+</form>
+{% endcomment %}

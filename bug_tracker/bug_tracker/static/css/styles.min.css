@@ -16899,3 +16899,13 @@ ul {
 .timeline-widget .timeline-item .timeline-badge.badge-primary {
     border: 2px solid #5d87ff;
 }
+
+.errorlist {
+    color: rgb(235, 117, 117);
+}
+.errors input {
+    border-color: red;
+}
+.errors label {
+    color: red;
+}
