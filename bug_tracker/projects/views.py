@@ -15,14 +15,9 @@ from .models import Project
 # Create your views here.
 
 
-class DashBoardView(TemplateView):
-    template_name = "projects/dashboard.html"
-
-
 class ProjectsListView(ListView):
     template_name = "projects/projects_list.html"
     model = Project
-    template_name = "projects/projects_list.html"
     context_object_name = "projects"
 
 

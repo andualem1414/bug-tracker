@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 <!--break-->
-{% load static %} {% block content %}
+{% load static %}
+<!--break-->
+
+{% block content %}
 
 <div class="row">
     <div class="col-md-7">
-        <h4 class="fw-semibold mb-4">Add Project</h4>
+        <h4 class="fw-semibold mb-4">Add Ticket</h4>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{% url 'create_project' %}">
+                <form method="POST" action="{% url 'create_ticket' %}">
                     {% csrf_token %} {% for field in form %}
                     <div
                         class="form-group mb-3 {% if field.errors %} errors {% endif %}"
@@ -21,7 +24,7 @@
                     {% endfor %}
 
                     <button class="btn btn-primary my-3" type="submit">
-                        Create Project
+                        Create Ticket
                     </button>
                 </form>
             </div>
