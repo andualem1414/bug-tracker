@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 <!--break-->
 {% load static %}
+<!--break-->
+
+{% block title %} Projects {% endblock title %}
+<!--break-->
+
+{% block subtitle %} Projects {% endblock subtitle %}
 
 <!--break-->
 
@@ -49,9 +55,13 @@
                             {% for project in projects %}
                             <tr>
                                 <td class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-1">
-                                        {{project.name}}
-                                    </h6>
+                                    <a
+                                        href="{% url 'detail_project' project.id%}"
+                                    >
+                                        <h6 class="fw-semibold mb-1">
+                                            {{project.name}}
+                                        </h6>
+                                    </a>
                                     <span class="fw-normal"
                                         >{{project.name}}</span
                                     >

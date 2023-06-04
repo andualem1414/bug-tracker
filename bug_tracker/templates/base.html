@@ -55,10 +55,10 @@
                                     class="text-sm breadcrumb-item active"
                                     aria-current="page"
                                 >
-                                    Dashboard
+                                    {% block title %}{% endblock title %}
                                 </li>
                             </ol>
-                            <h6 class="mb-0 font-weight-bolder">Dashboard</h6>
+                            <h6 class="mb-0 font-weight-bolder">{% block subtitle %}{% endblock subtitle %}</h6>
                         </nav>
 
                         <div

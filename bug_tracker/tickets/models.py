@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 
+from projects.models import Project
+
 
 class Ticket(models.Model):
     ORDER_STATUS = (
@@ -17,3 +19,4 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=40, choices=ORDER_STATUS)
+    project = models.ForeignKey(to=Project, on_delete=models.CASCADE)

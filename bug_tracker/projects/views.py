@@ -6,8 +6,10 @@ from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
-    DeleteView,
+    DetailView,
 )
+
+from tickets.models import Ticket
 
 from .forms import ProjectForm
 from .models import Project
@@ -16,19 +18,30 @@ from .models import Project
 
 
 class ProjectsListView(ListView):
-    template_name = "projects/projects_list.html"
+    template_name = "projects/index.html"
     model = Project
     context_object_name = "projects"
 
 
-class CreateProjectView(CreateView):
+class ProjectCreateView(CreateView):
     template_name = "projects/create_project.html"
     form_class = ProjectForm
     model = Project
     success_url = "/projects"
 
 
-class UpdateProjectView(UpdateView):
+class ProjectDetailView(DetailView):
+    template_name = "projects/detail_project.html"
+    model = Project
+    context_object_name = "project"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tickets"] = Ticket.objects.filter(project=context["project"])
+        return context
+
+
+class ProjectUpdateView(UpdateView):
     template_name = "projects/update_project.html"
     form_class = ProjectForm
     model = Project
@@ -53,7 +66,7 @@ def delete_project(request, pk):
 
 #         }
 #     def get(request, *args, **kwargs):
-#         return render(request, 'projects/projects_list.html' )
+#         return render(request, 'projects/index.html' )
 
 #     def post(request, *args, **kwargs):
 #         name = request.POST["name"]
