@@ -20,3 +20,13 @@ class Ticket(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=40, choices=ORDER_STATUS)
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
+
+
+class Comment(models.Model):
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE, blank=True)
+
+    class Meta:
+        ordering = ["created_at"]

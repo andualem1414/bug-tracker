@@ -30,19 +30,122 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h4 class="fw-semibold mb-4">Comments</h4>
-
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-3">Add comment:</h6>
-                        <div class="d-flex">
-                            <input type="text" class="form-control" />
-                            <button
-                                type="button"
-                                class="btn btn-primary mx-1 py-1"
-                            >
-                                Comment
-                            </button>
+                        <div class="my-3">
+                            <table class="table text-nowrap mb-0 align-middle">
+                                <thead class="text-dark fs-4">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">
+                                                Commenter
+                                            </h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">
+                                                Comment
+                                            </h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">
+                                                Created At
+                                            </h6>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for comment in ticket.comment_set.all %}
+                                    <tr>
+                                        <td class="border-bottom-0">
+                                            <a
+                                                href="{% url 'ticket_detail' ticket.id%}"
+                                            >
+                                                <h6
+                                                    class="fw-semibold mb-1"
+                                                ></h6>
+                                            </a>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">
+                                                <a
+                                                    href=""
+                                                    class="text-dark"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#{{comment.id}}"
+                                                >
+                                                    <!--prettier-ignore-->
+                                                    {{ comment.comment|truncatechars:15}}
+                                                </a>
+                                            </p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <div
+                                                class="d-flex align-items-end justify-content-end gap-2"
+                                            >
+                                                <span
+                                                    class="badge bg-primary rounded-3 fw-semibold"
+                                                >
+                                                    <!--prettier-ignore-->
+                                                    {{ comment.created_at|timesince }} ago
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal -->
+                                    <div
+                                        class="modal fade"
+                                        id="{{comment.id}}"
+                                        tabindex="-1"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true"
+                                    >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5
+                                                        class="modal-title"
+                                                        id="exampleModalLabel"
+                                                    >
+                                                        Comment Details:
+                                                    </h5>
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                    ></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <h5>{{comment.comment}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <h4 class="mb-3">Add comment:</h4>
+                        <div class="">
+                            <form class="" action="" method="POST">
+                                {% csrf_token %} {% for field in form %}
+
+                                <div
+                                    class="form-group mb-3 {% if field.errors %} errors {% endif %}"
+                                >
+                                    {{ field }} {{ field.errors }}
+                                </div>
+
+                                {% endfor %}
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary mx-1 py-1"
+                                >
+                                    Comment
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

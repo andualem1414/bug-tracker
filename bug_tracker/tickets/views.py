@@ -3,9 +3,14 @@ from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views.generic import ListView, CreateView, View, UpdateView, DetailView
 
 from projects.models import Project
-from .forms import TicketForm, UpdateForm
+from .forms import TicketForm, UpdateForm, CommentForm
 
 from .models import Ticket
+
+from django.views.generic import FormView
+from django.views.generic.detail import SingleObjectMixin
+from django.urls import reverse
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -24,15 +29,62 @@ class TicketUpdateView(UpdateView):
     success_url = "/tickets"
 
 
-class TicketDetailView(DetailView):
-    template_name = "tickets/detail_ticket.html"
+class TicketDisplay(DetailView):
     model = Ticket
+    template_name = "tickets/detail_ticket.html"
     context_object_name = "ticket"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["tickets"] = Ticket.objects.filter(project=context["project"])
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        return context
+
+
+class PostComment(SingleObjectMixin, FormView):
+    model = Ticket
+    form_class = CommentForm
+    template_name = "post_detail.html"
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(PostComment, self).get_form_kwargs()
+        kwargs["request"] = self.request
+        print(kwargs["request"])
+        return kwargs
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.ticket = self.object
+        comment.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        ticket = self.get_object()
+        return reverse("ticket_detail", kwargs={"pk": ticket.pk})
+
+
+class TicketDetailView(View):
+    def get(self, request, *args, **kwargs):
+        view = TicketDisplay.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = PostComment.as_view()
+        return view(request, *args, **kwargs)
+
+
+# class TicketDetailView(DetailView):
+#     template_name = "tickets/detail_ticket.html"
+#     model = Ticket
+#     context_object_name = "ticket"
+
+# def get_context_data(self, **kwargs):
+#     context = super().get_context_data(**kwargs)
+#     context["tickets"] = Ticket.objects.filter(project=context["project"])
+#     return context
 
 
 # class CreateTicketView(CreateView):
