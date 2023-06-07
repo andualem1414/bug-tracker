@@ -28,6 +28,7 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
     model = Project
     success_url = "/projects"
+    success_message = "Project was created successfully"
 
 
 class ProjectDetailView(DetailView):
@@ -57,7 +58,7 @@ class ProjectUpdateView(UpdateView):
 def delete_project(request, pk):
     project = Project.objects.get(pk=pk)
     project.delete()
-    return redirect("list_projects")
+    return redirect("projects")
 
 
 # class AddProject(View):

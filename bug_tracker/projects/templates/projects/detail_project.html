@@ -84,16 +84,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for ticket in project_tickets_set.all()
-                                    %}
+                                    <!--prettier-ignore-->
+                                    {% for ticket in project.ticket_set.all %}
                                     <tr>
                                         <td class="border-bottom-0">
                                             <a
                                                 href="{% url 'ticket_detail' ticket.id%}"
                                             >
-                                                <h6 class="fw-semibold mb-1">
-                                                    {{ticket.title}}
-                                                </h6>
+                                                <u
+                                                    ><h5
+                                                        class="fw-semibold mb-1"
+                                                    >
+                                                        {{ticket.title}}
+                                                    </h5>
+                                                </u>
                                             </a>
                                         </td>
                                         <td class="border-bottom-0">

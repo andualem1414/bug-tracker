@@ -14,7 +14,7 @@
 <div class="d-flex justify-content-end">
     <a
         href="{% url 'create_project' %}"
-        class="btn btn-secondary mb-2 justify-self-end"
+        class="btn btn-secondary mb-3 justify-self-end"
     >
         <span class="me-1">
             <i class="ti ti-circle-plus"></i>
@@ -22,6 +22,9 @@
         Create Project
     </a>
 </div>
+
+{% include 'partials/_messages.html' %}
+
 <!-- Button trigger modal -->
 
 <div class="row">
@@ -62,7 +65,9 @@
                                             {{project.name}}
                                         </h5>
                                     </a>
-                                    <p class="fw-normal"><small>{{project.name}}<small></p>
+                                    <p class="fw-normal">
+                                        <small>{{project.name}}</small>
+                                    </p>
                                 </td>
                                 <td class="border-bottom-0">
                                     <p class="mb-0 fw-normal">

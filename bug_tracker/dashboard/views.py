@@ -5,4 +5,4 @@ from django.views.generic import TemplateView
 
 
 class DashBoardView(TemplateView):
-    template_name = "dashboard/dashboard.html"
+    template_name = "dashboard/index.html"

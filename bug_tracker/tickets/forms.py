@@ -17,17 +17,6 @@ class TicketForm(forms.ModelForm):
             visible.field.widget.attrs["class"] = "form-control"
 
 
-class UpdateForm(forms.ModelForm):
-    class Meta:
-        model = Ticket
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super(UpdateForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs["class"] = "form-control"
-
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views.generic import ListView, CreateView, View, UpdateView, DetailView
 
 from projects.models import Project
-from .forms import TicketForm, UpdateForm, CommentForm
+from .forms import TicketForm, CommentForm
 
 from .models import Ticket
 
@@ -23,7 +23,7 @@ class TicketListView(ListView):
 
 class TicketUpdateView(UpdateView):
     template_name = "tickets/update_ticket.html"
-    form_class = UpdateForm
+    form_class = TicketForm
     model = Ticket
     context_object_name = "ticket"
     success_url = "/tickets"
@@ -57,7 +57,7 @@ class PostComment(SingleObjectMixin, FormView):
 
     def form_valid(self, form):
         comment = form.save(commit=False)
-        comment.ticket = self.object
+        comment.ticket = self.get_object()
         comment.save()
         return super().form_valid(form)
 
