@@ -13,22 +13,34 @@ from tickets.models import Ticket
 
 from .forms import ProjectForm
 from .models import Project
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 # Create your views here.
 
 
-class ProjectsListView(ListView):
+def is_member(user):
+    return user.groups.filter(name="developer").exists()
+
+
+class ProjectsListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url = "/users/login"
+    redirect_field_name = "/projects"
+
+    permission_required = "projects.view_project"
     template_name = "projects/index.html"
     model = Project
     context_object_name = "projects"
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = "projects.add_project"
     template_name = "projects/create_project.html"
     form_class = ProjectForm
     model = Project
     success_url = "/projects"
-    success_message = "Project was created successfully"
+    success_message = "%(name)s was created successfully"
 
 
 class ProjectDetailView(DetailView):
@@ -42,12 +54,14 @@ class ProjectDetailView(DetailView):
         return context
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(SuccessMessageMixin, UpdateView):
     template_name = "projects/update_project.html"
     form_class = ProjectForm
     model = Project
     success_url = "/projects"
     context_object_name = "project"
+
+    success_message = "Project successfully Updated!!!!"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
