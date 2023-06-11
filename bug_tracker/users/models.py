@@ -11,6 +11,7 @@ class User(AbstractUser):
         ("Developer", "Developer"),
         ("Project Manager", "Project Manager"),
         ("Submitter", "Submitter"),
+        ("Admin", "Admin"),
     )
 
     role = models.CharField(

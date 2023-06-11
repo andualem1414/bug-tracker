@@ -33,6 +33,8 @@ class ProjectsListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Project
     context_object_name = "projects"
 
+    paginate_by = 5
+
 
 class ProjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = "projects.add_project"

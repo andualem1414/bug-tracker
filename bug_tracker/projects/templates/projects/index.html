@@ -28,6 +28,7 @@
 
 <div class="row">
     <div class="col d-flex align-items-stretch">
+        {% if users|length_is==0 %}
         <div class="card w-100">
             <div class="card-body p-4">
                 <h5 class="card-title fw-semibold mb-4">My Projects</h5>
@@ -153,8 +154,56 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination-container">
+                    <div class="row">
+                        <div class="col">
+                            Showing page {{page_obj.number}} of
+                            {{page_obj.paginator.num_pages}}
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <ul
+                                class="pagination align-right float-right mr-auto"
+                            >
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">
+                                        &laquo; 1</a
+                                    >
+                                </li>
+                                <li class="page-item">
+                                    <a
+                                        class="page-link"
+                                        href="?page={{page_obj.previous_page_number}}"
+                                        >Previous</a
+                                    >
+                                </li>
+                                {% endif %} {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a
+                                        class="page-link"
+                                        href="?page={{page_obj.next_page_number}}"
+                                        >Next</a
+                                    >
+                                </li>
+                                <li class="page-item">
+                                    <a
+                                        class="page-link"
+                                        href="?page={{page_obj.paginator.num_pages}}"
+                                    >
+                                        {{page_obj.paginator.num_pages}} &raquo;
+                                    </a>
+                                </li>
+
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        {% else %}
+        <h5>No Projects, Please create new Project</h5>
+        {% endif %}
     </div>
 </div>
 

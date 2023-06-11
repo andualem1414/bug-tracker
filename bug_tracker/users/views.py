@@ -24,6 +24,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "users/user_list.html"
     context_object_name = "users"
     permission_denied_message = "You do not have permission to View Users."
+    paginate_by = 5
 
 
 class UserUpdateView(

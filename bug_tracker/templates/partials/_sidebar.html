@@ -35,6 +35,8 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                <!--prettier-ignore-->
+                {% if user.role == "admin" or user.role|lower == "project manager"%}
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
@@ -47,6 +49,8 @@
                         <span class="hide-menu">Manage Users</span>
                     </a>
                 </li>
+                {% endif %}
+
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
