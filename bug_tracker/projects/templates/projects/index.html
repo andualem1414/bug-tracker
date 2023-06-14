@@ -11,16 +11,20 @@
 <!--break-->
 
 {% block content %}
-<div class="d-flex justify-content-end">
-    <a
-        href="{% url 'create_project' %}"
-        class="btn btn-secondary mb-3 justify-self-end"
-    >
-        <span class="me-1">
-            <i class="ti ti-circle-plus"></i>
-        </span>
-        Create Project
-    </a>
+<div class="">
+    <div class="row">
+        <div class="col">
+            <h5 class="card-title fw-semibold mb-4 r">My Projects</h5>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <a href="{% url 'create_project' %}" class="btn btn-secondary mb-3">
+                <span class="me-1">
+                    <i class="ti ti-circle-plus"></i>
+                </span>
+                Create Project
+            </a>
+        </div>
+    </div>
 </div>
 {% include 'partials/_messages.html' %}
 
@@ -28,10 +32,51 @@
 
 <div class="row">
     <div class="col d-flex align-items-stretch">
-        {% if users|length_is==0 %}
+        {% if projects.count %}
         <div class="card w-100">
             <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">My Projects</h5>
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="d-flex">
+                            Showing
+                            <form action="{% url 'projects' %}" method="get">
+                                {% csrf_token %}
+                                <input
+                                    style="width: 40px; height: 25px"
+                                    name="page_number"
+                                    class="form-control ps-1 pe-1 mx-2"
+                                    type="number"
+                                    placeholder="{{object_list.count}}"
+                                />
+                                <input class="d-none" type="submit" />
+                            </form>
+                            results.
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <form action="{% url 'projects' %}" method="GEt">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Search Projects..."
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2"
+                                />
+                                <button
+                                    class="input-group-text"
+                                    id="basic-addon2"
+                                    type="submit"
+                                >
+                                    <i class="ti ti-list-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
@@ -57,7 +102,7 @@
                         <tbody>
                             {% for project in projects %}
                             <tr>
-                                <td class="border-bottom-0">
+                                <td class="border-bottom-0 pb-0">
                                     <a
                                         href="{% url 'detail_project' project.id%}"
                                     >
@@ -154,7 +199,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pagination-container">
+                <div class="pagination-container mt-2">
                     <div class="row">
                         <div class="col">
                             Showing page {{page_obj.number}} of
@@ -202,7 +247,7 @@
             </div>
         </div>
         {% else %}
-        <h5>No Projects, Please create new Project</h5>
+        <h5>You Have No Projects.</h5>
         {% endif %}
     </div>
 </div>

@@ -6,6 +6,7 @@ from projects.models import Project
 from .forms import TicketForm, CommentForm
 
 from .models import Ticket
+from users.models import User
 
 from django.views.generic import FormView
 from django.views.generic.detail import SingleObjectMixin
@@ -19,6 +20,10 @@ class TicketListView(ListView):
     template_name = "tickets/index.html"
     model = Ticket
     context_object_name = "tickets"
+
+    def get_queryset(self):
+        self.queryset = Ticket.objects.filter(developer=self.request.user)
+        return super().get_queryset()
 
 
 class TicketUpdateView(UpdateView):
@@ -102,7 +107,8 @@ class TicketDetailView(View):
 class CreateTicketView(View):
     def get(self, request, project_id, *args, **kwargs):
         project = Project.objects.get(pk=project_id)
-        form = TicketForm()
+        form = TicketForm(project_id=project_id)
+
         return render(
             request, "tickets/create_ticket.html", {"form": form, "project": project}
         )

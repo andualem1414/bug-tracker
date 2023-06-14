@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 from projects.models import Project
+from users.models import User
 
 
 class Ticket(models.Model):
@@ -20,6 +21,10 @@ class Ticket(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=40, choices=ORDER_STATUS)
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
+    developer = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+    )
 
 
 class Comment(models.Model):

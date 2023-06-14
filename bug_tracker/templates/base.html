@@ -44,22 +44,24 @@
                             <li class="nav-item"></li>
                         </ul>
                         <div class="navbar-nav"></div>
-                        <nav aria-label="breadcrumb">
-                            <ol
-                                class="px-0 pt-1 pb-0 mb-0 bg-transparent breadcrumb me-sm-6 text-white"
-                            >
-                                <li class="text-sm breadcrumb-item">
-                                    <a class="opacity-8" href="#">Home</a>
-                                </li>
-                                <li
-                                    class="text-sm breadcrumb-item active"
-                                    aria-current="page"
+                        <div class="d-none d-lg-block">
+                            <nav aria-label="breadcrumb">
+                                <ol
+                                    class="px-0 pt-1 pb-0 mb-0 bg-transparent breadcrumb me-sm-6 text-white"
                                 >
-                                    {% block title %}{% endblock title %}
-                                </li>
-                            </ol>
-                            <h6 class="mb-0 font-weight-bolder">{% block subtitle %}{% endblock subtitle %}</h6>
-                        </nav>
+                                    <li class="text-sm breadcrumb-item">
+                                        <a class="opacity-8" href="#">Home</a>
+                                    </li>
+                                    <li
+                                        class="text-sm breadcrumb-item active"
+                                        aria-current="page"
+                                    >
+                                        {% block title %}{% endblock title %}
+                                    </li>
+                                </ol>
+                                <h6 class="mb-0 font-weight-bolder">{% block subtitle %}{% endblock subtitle %}</h6>
+                            </nav>
+                        </div>
 
                         <div
                             class="navbar-collapse justify-content-end px-0"
