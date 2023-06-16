@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Modernize Free</title>
+        <title>Bug Tracker | Login</title>
         <link
             rel="shortcut icon"
             type="image/png"
@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <!--  Body Wrapper -->
+        <!--  Login Body Wrapper -->
         <div
             class="page-wrapper"
             id="main-wrapper"
@@ -43,9 +43,7 @@
                                             alt=""
                                         />
                                     </a>
-                                    <p class="text-center">
-                                        Your Social Campaigns
-                                    </p>
+                                    <p class="text-center">Please Login</p>
                                     {% include "partials/_messages.html" %}
                                     <form
                                         method="POST"
@@ -63,32 +61,7 @@
                                             {{field}} {{field.errors}}
                                         </div>
 
-                                        {% endfor %} {% comment %}
-                                        <div
-                                            class="d-flex align-items-center justify-content-between mb-4"
-                                        >
-                                            <div class="form-check">
-                                                <input
-                                                    class="form-check-input primary"
-                                                    type="checkbox"
-                                                    value=""
-                                                    id="flexCheckChecked"
-                                                    checked
-                                                />
-                                                <label
-                                                    class="form-check-label text-dark"
-                                                    for="flexCheckChecked"
-                                                >
-                                                    Remeber this Device
-                                                </label>
-                                            </div>
-                                            <a
-                                                class="text-primary fw-bold"
-                                                href="./index.html"
-                                                >Forgot Password ?</a
-                                            >
-                                        </div>
-                                        {% endcomment %}
+                                        {% endfor %}
                                         <button
                                             type="submit"
                                             class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
@@ -99,7 +72,7 @@
                                             class="d-flex align-items-center justify-content-center"
                                         >
                                             <p class="fs-4 mb-0 fw-bold">
-                                                New to Modernize?
+                                                New to Bug Tracker?
                                             </p>
                                             <a
                                                 class="text-primary fw-bold ms-2"

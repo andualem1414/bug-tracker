@@ -2,10 +2,11 @@
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div>
+        <!--Main Logo-->
         <div
             class="brand-logo d-flex align-items-center justify-content-between"
         >
-            <a href="./index.html" class="text-nowrap logo-img">
+            <a href="{% url 'dashboard' %}" class="text-nowrap logo-img">
                 <img src={% static "images/logos/dark-logo.svg" %} width="180"
                 alt="" />
             </a>
@@ -17,12 +18,14 @@
             </div>
         </div>
         <!-- Sidebar navigation-->
+
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav" class="">
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
                 </li>
+                <!--Dashboard-->
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
@@ -35,8 +38,10 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+
+                <!--Manage Users-->
                 <!--prettier-ignore-->
-                {% if user.role == "admin" or user.role|lower == "project manager"%}
+                {% if user.role|lower == "admin" or user.role|lower == "project manager"%}
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
@@ -51,6 +56,7 @@
                 </li>
                 {% endif %}
 
+                <!--Manage Projects-->
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
@@ -63,6 +69,8 @@
                         <span class="hide-menu">My Projects</span>
                     </a>
                 </li>
+
+                <!--Manage Ticket-->
                 <li class="sidebar-item">
                     <a
                         class="sidebar-link"
@@ -76,6 +84,7 @@
                     </a>
                 </li>
 
+                <!--User Management-->
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Settings</span>

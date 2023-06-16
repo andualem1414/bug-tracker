@@ -10,12 +10,62 @@
 
 <!--break-->
 
-{% block content %} {% include 'partials/_messages.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <h5 class="card-title fw-semibold mb-4 r">My Users</h5>
+    </div>
+</div>
+
+{% include 'partials/_messages.html' %}
 <div class="row">
     <div class="col d-flex align-items-stretch">
         <div class="card w-100">
             <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">User List</h5>
+                <!--Search and Number of Pages Count-->
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="d-flex">
+                            Showing
+                            <form action="{% url 'users' %}" method="get">
+                                {% csrf_token %}
+                                <input
+                                    style="width: 40px; height: 25px"
+                                    name="page_number"
+                                    class="form-control ps-1 pe-1 mx-2"
+                                    type="number"
+                                    placeholder="{{object_list.count}}"
+                                />
+                                <input class="d-none" type="submit" />
+                            </form>
+                            results.
+                        </h5>
+                    </div>
+                    <!--Search Project-->
+                    <div class="col-4">
+                        <form action="{% url 'users' %}" method="GET">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Search Projects..."
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2"
+                                />
+                                <button
+                                    class="input-group-text"
+                                    id="basic-addon2"
+                                    type="submit"
+                                >
+                                    <i class="ti ti-list-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
@@ -38,11 +88,12 @@
                                 ></th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {% for user in users %}
                             <tr>
-                                <td class="border-bottom-0">
-                                    <a href="{% url 'update-user' user.id%}">
+                                <td class="border-bottom-0 pb-0">
+                                    <a href="{% url 'update_user' user.id%}">
                                         <h5 class="fw-semibold mb-1">
                                             {{user.username}}
                                         </h5>
@@ -76,18 +127,18 @@
                                         <button
                                             class="btn btn-danger btn-sm"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
+                                            data-bs-target="#projectdelete{{user.id}}"
                                         >
                                             Delete
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-                            <!-- Modal -->
+                            <!-- Delete User Modal -->
 
                             <div
                                 class="modal fade"
-                                id="exampleModal"
+                                id="projectdelete{{user.id}}"
                                 tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
@@ -133,6 +184,7 @@
                     </table>
                 </div>
 
+                <!--Pagination-->
                 <div class="pagination-container">
                     <div class="row">
                         <div class="col">

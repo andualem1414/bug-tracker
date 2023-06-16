@@ -14,8 +14,6 @@ from .forms import RegisterForm, LoginForm, UserUpdateForm
 
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_denied_message = "You do not have permission to View Users."
-
     login_url = "users/login"
     redirect_field_name = "users"
 
@@ -25,6 +23,19 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "users"
     permission_denied_message = "You do not have permission to View Users."
     paginate_by = 5
+
+    def get_queryset(self):
+        search = self.request.GET.get("search", "")
+        projects = User.objects.filter(
+            username__icontains=search
+        ) | User.objects.filter(role__icontains=search)
+        return projects
+
+    def get_paginate_by(self, queryset):
+        if self.request.GET.get("page_number"):
+            self.request.session["page_number"] = self.request.GET.get("page_number")
+        self.paginate_by = self.request.session.get("page_number", 5)
+        return self.paginate_by
 
 
 class UserUpdateView(

@@ -10,6 +10,7 @@
 <!--break-->
 {% block content %}
 
+<!--Form to Update Project-->
 <div class="row">
     <div class="col-md-7">
         <h4 class="fw-semibold mb-4">Update Project</h4>
@@ -19,7 +20,10 @@
                     method="POST"
                     action="{% url 'edit_project' project.id %}"
                 >
-                    {% csrf_token %} {% for field in form %}
+                    {% csrf_token %}
+                    <!--break-->
+
+                    {% for field in form %}
                     <div
                         class="form-group mb-3 {% if field.errors %} errors {% endif %}"
                     >
@@ -28,7 +32,6 @@
                         >
                         {{ field }} {{ field.errors }}
                     </div>
-
                     {% endfor %}
 
                     <button class="btn btn-primary my-3" type="submit">
@@ -40,34 +43,4 @@
     </div>
 </div>
 
-{% endblock content %} {% comment %}
-<form action="{% url 'create_project' %}" method="POST">
-    {% csrf_token %}
-    <div class="form-group mb-3">
-        <label for="exampleFormControlInput1" class="form-label"
-            >Project Name</label
-        >
-        <input
-            type="text"
-            name="name"
-            class="form-control"
-            id="exampleFormControlInput1"
-            placeholder="New project name"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"
-            >Project Description</label
-        >
-        <input
-            type="textarea"
-            name="description"
-            placeholder="Description"
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-        />
-    </div>
-    <input type="submit" class="btn btn-primary" value="Add Project" />
-</form>
-{% endcomment %}
+{% endblock content %}

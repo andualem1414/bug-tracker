@@ -10,12 +10,13 @@
 <!--break-->
 {% block content %}
 
+<!--Update User-->
 <div class="row">
     <div class="col-md-7">
         <h4 class="fw-semibold mb-4">Update User</h4>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{% url 'update-user' user.id %}">
+                <form method="POST" action="{% url 'update_user' user.id %}">
                     {% csrf_token %} {% for field in form %}
                     <div
                         class="form-group mb-3 {% if field.errors %} errors {% endif %}"

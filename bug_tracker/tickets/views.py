@@ -25,6 +25,12 @@ class TicketListView(ListView):
         self.queryset = Ticket.objects.filter(developer=self.request.user)
         return super().get_queryset()
 
+    def get_paginate_by(self, queryset):
+        if self.request.GET.get("page_number"):
+            self.request.session["page_number"] = self.request.GET.get("page_number")
+        self.paginate_by = self.request.session.get("page_number", 5)
+        return self.paginate_by
+
 
 class TicketUpdateView(UpdateView):
     template_name = "tickets/update_ticket.html"

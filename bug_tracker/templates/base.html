@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Modernize Free</title>
+        <title>Bug Tracker </title>
         <link
             rel="shortcut icon"
             type="image/png"
@@ -26,6 +26,7 @@
             <!-- Sidebar Start -->
             {% include "partials/_sidebar.html" %}
             <!--  Sidebar End -->
+
             <!--  Main wrapper -->
             <div class="body-wrapper">
                 <!--  Header Start -->
@@ -43,7 +44,8 @@
                             </li>
                             <li class="nav-item"></li>
                         </ul>
-                        <div class="navbar-nav"></div>
+
+                       <!--Breadcrumb-->
                         <div class="d-none d-lg-block">
                             <nav aria-label="breadcrumb">
                                 <ol
@@ -70,6 +72,7 @@
                             <ul
                                 class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
                             >
+                            <!--Search Project-->
                                 <li>
                                     <div class="input-group me-3">
                                         <input
@@ -92,6 +95,7 @@
                                         </span>
                                     </div>
                                 </li>
+                            <!--Notification-->
                                 <li class="nav-item dropdown">
                                     <a
                                         class="nav-link nav-icon-hover"
@@ -138,14 +142,11 @@
                                                 ></i>
                                                 <p class="mb-0 fs-3">My Task</p>
                                             </a>
-                                            <a
-                                                href="./authentication-login.html"
-                                                class="btn btn-outline-primary mx-3 mt-2 d-block"
-                                                >Logout</a
-                                            >
+                                       
                                         </div>
                                     </div>
                                 </li>
+                            <!--Account Details Dropdown-->
                                 <h6 class="pt-2">{{user.username}}</h6>
                                 <li class="nav-item dropdown">
                                     <a
@@ -203,6 +204,7 @@
                                         </div>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                     </nav>

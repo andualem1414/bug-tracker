@@ -32,9 +32,11 @@
 
 <div class="row">
     <div class="col d-flex align-items-stretch">
+        <!--Check if Project exisits-->
         {% if projects.count %}
         <div class="card w-100">
             <div class="card-body p-4">
+                <!--Search and Number of Pages Count-->
                 <div class="row">
                     <div class="col-8">
                         <h5 class="d-flex">
@@ -53,8 +55,9 @@
                             results.
                         </h5>
                     </div>
+                    <!--Search Project-->
                     <div class="col-4">
-                        <form action="{% url 'projects' %}" method="GEt">
+                        <form action="{% url 'projects' %}" method="GET">
                             {% csrf_token %}
                             <div class="input-group mb-3">
                                 <input
@@ -76,7 +79,7 @@
                         </form>
                     </div>
                 </div>
-
+                <!--Projects List-->
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
@@ -99,6 +102,7 @@
                                 ></th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {% for project in projects %}
                             <tr>
@@ -141,18 +145,18 @@
                                         <button
                                             class="btn btn-danger btn-sm"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
+                                            data-bs-target="#deleteproject{{project.id}}"
                                         >
                                             Delete
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-                            <!-- Modal -->
+                            <!-- Delete Project Modal -->
 
                             <div
                                 class="modal fade"
-                                id="exampleModal"
+                                id="deleteproject{{project.id}}"
                                 tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
@@ -164,7 +168,7 @@
                                                 class="modal-title"
                                                 id="exampleModalLabel"
                                             >
-                                                Modal title
+                                                Warning!
                                             </h5>
                                             <button
                                                 type="button"
@@ -199,6 +203,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!--Table Paginatior-->
                 <div class="pagination-container mt-2">
                     <div class="row">
                         <div class="col">

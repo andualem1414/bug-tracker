@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 <!--break-->
-{% load static %} {% block content %}
+{% load static %}
+<!--break-->
+
+{% block title %} Projects {% endblock title %}
+<!--break-->
+
+{% block subtitle %} Ticket Details {% endblock subtitle %}
+<!--break-->
+
+{% block content %}
 
 <div class="row">
     <div class="col-12">
         <div class="row">
             <div class="col-md-6">
                 <h4 class="fw-semibold mb-4">About Ticket</h4>
-
+                <!--Ticket Detail-->
                 <div class="card">
                     <div class="card-body">
                         <h6 class="fw-normal mb-2">Ticket Title</h6>
@@ -35,6 +44,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                        <!--Comment Section-->
                         <div class="my-3">
                             <table class="table text-nowrap mb-0 align-middle">
                                 <thead class="text-dark fs-4">
@@ -74,7 +84,7 @@
                                                     href=""
                                                     class="text-dark"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#{{comment.id}}"
+                                                    data-bs-target="#commentid{{comment.id}}"
                                                 >
                                                     <!--prettier-ignore-->
                                                     {{ comment.comment|truncatechars:15}}
@@ -94,10 +104,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Modal -->
+                                    <!-- Comment Detail Model -->
                                     <div
                                         class="modal fade"
-                                        id="{{comment.id}}"
+                                        id="commentid{{comment.id}}"
                                         tabindex="-1"
                                         aria-labelledby="exampleModalLabel"
                                         aria-hidden="true"
@@ -130,6 +140,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Add Comment-->
                         <h4 class="mb-3">Add comment:</h4>
                         <div class="">
                             <form class="" action="" method="POST">
