@@ -85,15 +85,12 @@
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Name</h6>
+                                    <h5 class="fw-semibold mb-0">Name</h5>
                                 </th>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">
+                                    <h5 class="fw-semibold mb-0">
                                         Description
-                                    </h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Priority</h6>
+                                    </h5>
                                 </th>
 
                                 <th
@@ -115,7 +112,9 @@
                                         </h5>
                                     </a>
                                     <p class="fw-normal">
-                                        <small>{{project.name}}</small>
+                                        <small
+                                            >{{project.created_at|date}}</small
+                                        >
                                     </p>
                                 </td>
                                 <td class="border-bottom-0">
@@ -123,16 +122,7 @@
                                         {{project.description}}
                                     </p>
                                 </td>
-                                <td class="border-bottom-0">
-                                    <div
-                                        class="d-flex align-items-center gap-2"
-                                    >
-                                        <span
-                                            class="badge bg-primary rounded-3 fw-semibold"
-                                            >Low</span
-                                        >
-                                    </div>
-                                </td>
+
                                 <td class="border-bottom-0">
                                     <div
                                         class="d-flex align-items-center justify-content-center gap-2"

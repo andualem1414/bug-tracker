@@ -25,14 +25,61 @@
                         <h6 class="fw-normal mb-2">Ticket Description</h6>
                         <h5 class="fw-semibold">{{ticket.description}}</h5>
                         <hr />
+                        <h6 class="fw-normal mb-2">Submitted By:</h6>
+                        <h5 class="fw-semibold">{{ticket.submitter}}</h5>
+                        <hr />
                         <h6 class="fw-normal mb-2">Assigned To:</h6>
                         <h5 class="fw-semibold">{{ticket.developer}}</h5>
                         <hr />
-                        <div class="d-flex align-items-center">
-                            <h6 class="fw-normal me-3 mb-0">Ticket Status</h6>
-                            <span class="badge bg-primary rounded-3 fw-semibold"
-                                >{{ticket.status}}</span
-                            >
+                        <h6 class="fw-normal mb-2">Ticket Type</h6>
+                        <h5 class="fw-semibold">{{ticket.type}}</h5>
+                        <hr />
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <h6 class="fw-normal me-3 mb-0">
+                                        Ticket Status
+                                    </h6>
+                                    <span
+                                        class="badge 
+                                        {% if  ticket.status == "new"%}
+                                        bg-primary
+                                        {% elif ticket.status == "open" %}
+                                        bg-danger
+                                        {% elif ticket.status == "inprogress" %}
+                                        bg-warning
+                                        {% elif ticket.status == "resolved" %}
+                                        bg-success
+                                        {% elif ticket.status == "additional information required" %}
+                                        bg-info
+                                        {% endif %}
+                                        rounded-3 fw-semibold"
+                                        >{{ticket.status}}</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <h6 class="fw-normal me-3 mb-0">
+                                        Ticket Priority
+                                    </h6>
+                                    <span
+                                        class="badge 
+                                        {% if  ticket.priority == "None"%}
+                                        bg-primary
+                                        {% elif ticket.priority == "Low" %}
+                                        bg-info
+                                        {% elif ticket.priority == "Medium" %}
+                                        bg-warning
+                                        {% elif ticket.priority == "High" %}
+                                        bg-danger
+                                       
+                                        {% endif %}
+                                        rounded-3 fw-semibold"
+                                        >{{ticket.priority}}</span
+                                    >
+                                </div>
+                            </div>
                         </div>
                         <hr />
 
@@ -70,13 +117,13 @@
                                     {% for comment in ticket.comment_set.all %}
                                     <tr>
                                         <td class="border-bottom-0">
-                                            <a
-                                                href="{% url 'ticket_detail' ticket.id%}"
-                                            >
+                                           
                                                 <h6
                                                     class="fw-semibold mb-1"
-                                                ></h6>
-                                            </a>
+                                                >
+                                            {{ comment.commenter}}
+                                            </h6>
+                                            
                                         </td>
                                         <td class="border-bottom-0">
                                             <p class="mb-0 fw-normal">

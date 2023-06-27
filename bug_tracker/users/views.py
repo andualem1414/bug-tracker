@@ -76,14 +76,6 @@ class LoginView(View):
             messages.error(request, "Invalid Username or Password")
             return render(request, "users/login.html", {"form": form})
 
-        # username = form.cleaned_data.get("username")
-        # password = form.cleaned_data.get("password")
-        # user = auth.authenticate(username=username, password=password)
-        # if user is not None:
-        #     auth.login(request, user)
-        #     messages.success(request, "Login Successful")
-        #     return redirect("projects")
-
 
 def logout(request):
     auth.logout(request)

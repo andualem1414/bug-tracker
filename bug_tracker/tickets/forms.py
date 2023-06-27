@@ -13,7 +13,7 @@ class TicketForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ["title", "description", "developer"]
+        fields = ["title", "description", "developer", "priority", "type", "status"]
         labels = {"developer": "List of developers for this Ticket"}
 
     # ORDER_STATUS = (

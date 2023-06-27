@@ -32,6 +32,34 @@ class TicketListView(ListView):
         return self.paginate_by
 
 
+class CreateTicketView(View):
+    def get(self, request, project_id, *args, **kwargs):
+        project = Project.objects.get(pk=project_id)
+        form = TicketForm(project_id=project_id)
+
+        return render(
+            request, "tickets/create_ticket.html", {"form": form, "project": project}
+        )
+
+    def post(self, request, project_id, *args, **kwargs):
+        form = TicketForm(request.POST)
+        project = Project.objects.get(pk=project_id)
+
+        if form.is_valid():
+            ticket = form.save(commit=False)
+
+            ticket.project = project
+            ticket.submitter = request.user
+            ticket.save()
+            return redirect("detail_project", project_id)
+        else:
+            return render(
+                request,
+                "tickets/create_ticket.html",
+                {"form": form, "project": project},
+            )
+
+
 class TicketUpdateView(UpdateView):
     template_name = "tickets/update_ticket.html"
     form_class = TicketForm
@@ -68,6 +96,7 @@ class PostComment(SingleObjectMixin, FormView):
 
     def form_valid(self, form):
         comment = form.save(commit=False)
+        comment.commenter = self.request.user
         comment.ticket = self.get_object()
         comment.save()
         return super().form_valid(form)
@@ -85,53 +114,3 @@ class TicketDetailView(View):
     def post(self, request, *args, **kwargs):
         view = PostComment.as_view()
         return view(request, *args, **kwargs)
-
-
-# class TicketDetailView(DetailView):
-#     template_name = "tickets/detail_ticket.html"
-#     model = Ticket
-#     context_object_name = "ticket"
-
-# def get_context_data(self, **kwargs):
-#     context = super().get_context_data(**kwargs)
-#     context["tickets"] = Ticket.objects.filter(project=context["project"])
-#     return context
-
-
-# class CreateTicketView(CreateView):
-#     template_name = "tickets/create_ticket.html"
-#     form_class = TicketForm
-#     model = Ticket
-#     success_url = "/tickets"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         print(self.request)
-#         return context
-
-
-class CreateTicketView(View):
-    def get(self, request, project_id, *args, **kwargs):
-        project = Project.objects.get(pk=project_id)
-        form = TicketForm(project_id=project_id)
-
-        return render(
-            request, "tickets/create_ticket.html", {"form": form, "project": project}
-        )
-
-    def post(self, request, project_id, *args, **kwargs):
-        form = TicketForm(request.POST)
-        project = Project.objects.get(pk=project_id)
-
-        if form.is_valid():
-            ticket = form.save(commit=False)
-
-            ticket.project = project
-            ticket.save()
-            return redirect("detail_project", project_id)
-        else:
-            return render(
-                request,
-                "tickets/create_ticket.html",
-                {"form": form, "project": project},
-            )

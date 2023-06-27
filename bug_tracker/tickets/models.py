@@ -14,20 +14,40 @@ class Ticket(models.Model):
         ("resolved", "resolved"),
         ("additional information required", "additional information required"),
     )
+    PRIORITY = {
+        ("None", "None"),
+        ("Low", "Low"),
+        ("Medium", "Medium"),
+        ("High", "High"),
+    }
+    TYPE = {
+        ("Bugs/Errors", "Bugs/Errors"),
+        ("Feature request", "Feature Request"),
+        ("Other Comments", "Other Comments"),
+        ("Traning/documents request", "Traning/documents Request"),
+    }
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=40, choices=ORDER_STATUS)
+    priority = models.CharField(max_length=40, choices=PRIORITY)
+    type = models.CharField(max_length=40, choices=TYPE)
+
     project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
+    submitter = models.ForeignKey(
+        to=User, related_name="submitter", on_delete=models.CASCADE
+    )
     developer = models.ForeignKey(
         to=User,
+        related_name="developer",
         on_delete=models.CASCADE,
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
+    commenter = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
