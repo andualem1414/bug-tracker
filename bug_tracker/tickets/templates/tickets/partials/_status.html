@@ -1,0 +1,16 @@
+<span
+class="badge 
+{% if  ticket.status == "new"%}
+bg-primary
+{% elif ticket.status == "open" %}
+bg-danger
+{% elif ticket.status == "inprogress" %}
+bg-warning
+{% elif ticket.status == "resolved" %}
+bg-success
+{% elif ticket.status == "additional information required" %}
+bg-info
+{% endif %}
+rounded-3 fw-semibold"
+>{{ticket.status}}</span
+>

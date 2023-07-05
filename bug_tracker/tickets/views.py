@@ -1,6 +1,8 @@
+import json
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views.generic import ListView, CreateView, View, UpdateView, DetailView
+from auditlog.models import LogEntry
 
 from projects.models import Project
 from .forms import TicketForm, CommentForm
@@ -22,7 +24,8 @@ class TicketListView(ListView):
     context_object_name = "tickets"
 
     def get_queryset(self):
-        self.queryset = Ticket.objects.filter(developer=self.request.user)
+        if self.request.user.role != "admin":
+            self.queryset = Ticket.objects.filter(developer=self.request.user)
         return super().get_queryset()
 
     def get_paginate_by(self, queryset):
@@ -75,7 +78,24 @@ class TicketDisplay(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        actions = {0: "create", 1: "update", 2: "delete", 3: "Access"}
+
+        histories = LogEntry.objects.filter(object_id=kwargs["object"].id)
         context["form"] = CommentForm()
+        history_list = []
+
+        for history in histories:
+            changes = json.loads(history.changes)
+            data = {}
+            data["user"] = history.actor
+            data["action"] = actions[history.action]
+            data["field"] = list(changes.keys())[0]
+            data["old_value"] = list(changes.values())[0][0]
+            data["new_value"] = list(changes.values())[0][1]
+            data["date"] = history.timestamp
+            history_list.append(data)
+
+        context["histories"] = history_list
         return context
 
 
@@ -91,7 +111,6 @@ class PostComment(SingleObjectMixin, FormView):
     def get_form_kwargs(self):
         kwargs = super(PostComment, self).get_form_kwargs()
         kwargs["request"] = self.request
-        print(kwargs["request"])
         return kwargs
 
     def form_valid(self, form):

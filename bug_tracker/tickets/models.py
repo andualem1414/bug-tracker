@@ -1,5 +1,7 @@
 from django.db import models
 
+from auditlog.registry import auditlog
+
 # Create your models here.
 
 from projects.models import Project
@@ -45,6 +47,9 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     commenter = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
@@ -55,3 +60,6 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ["created_at"]
+
+
+auditlog.register(Ticket)

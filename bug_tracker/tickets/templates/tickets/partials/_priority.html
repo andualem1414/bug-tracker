@@ -1,0 +1,15 @@
+<span
+class="badge 
+{% if  ticket.priority == "None"%}
+bg-primary
+{% elif ticket.priority == "Low" %}
+bg-info
+{% elif ticket.priority == "Medium" %}
+bg-warning
+{% elif ticket.priority == "High" %}
+bg-danger
+
+{% endif %}
+rounded-3 fw-semibold"
+>{{ticket.priority}}</span
+>
