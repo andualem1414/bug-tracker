@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages, auth
-from django.views.generic import View, ListView, UpdateView
+from django.views.generic import View, ListView, UpdateView, TemplateView
 from .models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
@@ -57,6 +57,17 @@ class UserUpdateView(
         user.groups.add(group)
         print(group)
         return super().form_valid(form)
+
+
+class ProfileView(
+    TemplateView,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+):
+    login_url = "users/login"
+    permission_required = "users.view_user"
+    model = User
+    template_name = "users/profile.html"
 
 
 class LoginView(View):

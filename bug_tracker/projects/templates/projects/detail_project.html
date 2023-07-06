@@ -57,6 +57,38 @@
                                     </button>
                                 </div>
                             </div>
+                            {% for user in project.personnels.all %}
+                            <div class="d-flex flex-start mt-4">
+                                <a class="me-3" href="#">
+                                    <img
+                                        class="rounded-circle shadow-1-strong"
+                                        src="https://picsum.photos/200"
+                                        alt="avatar"
+                                        width="65"
+                                        height="65"
+                                    />
+                                </a>
+                                <div class="ms-3 flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center"
+                                        >
+                                            <p class="mb-1">
+                                                <!--prettier-ignore-->
+                                                <strong> {{ user.username}}</strong
+                                                        >
+                                                <span class="small"
+                                                    >-
+                                                    <!--prettier-ignore-->
+                                                    {{ user.role }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <p class="small mb-0">{{user.email}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %} {% comment %}
                             <table class="table text-nowrap mb-0 align-middle">
                                 <thead class="text-dark fs-4">
                                     <tr>
@@ -83,13 +115,9 @@
                                     <tr>
                                         <td class="border-bottom-0">
                                             <a href="">
-                                                <u
-                                                    ><h5
-                                                        class="fw-semibold mb-1"
-                                                    >
-                                                        {{user.username}}
-                                                    </h5>
-                                                </u>
+                                                <h5 class="fw-semibold mb-1">
+                                                    {{user.username}}
+                                                </h5>
                                             </a>
                                         </td>
                                         <td class="border-bottom-0">
@@ -113,6 +141,7 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -172,13 +201,9 @@
                                             <a
                                                 href="{% url 'ticket_detail' ticket.id%}"
                                             >
-                                                <u
-                                                    ><h5
-                                                        class="fw-semibold mb-1"
-                                                    >
-                                                        {{ticket.title}}
-                                                    </h5>
-                                                </u>
+                                                <h5 class="fw-semibold mb-1">
+                                                    {{ticket.title}}
+                                                </h5>
                                             </a>
                                         </td>
                                         <td class="border-bottom-0">

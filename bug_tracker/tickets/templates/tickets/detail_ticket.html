@@ -12,287 +12,168 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-12">
-        <div class="row">
-            <div class="col-md-6">
-                <h4 class="fw-semibold mb-4">About Ticket</h4>
-                <!--Ticket Detail-->
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="fw-normal mb-2">Ticket Title</h6>
-                        <h5 class="fw-semibold">{{ticket.title}}</h5>
-                        <hr />
-                        <h6 class="fw-normal mb-2">Ticket Description</h6>
-                        <h5 class="fw-semibold">{{ticket.description}}</h5>
-                        <hr />
-                        <div class="row">
-                            <div class="col">
-                                <h6 class="fw-normal mb-2">Submitted By:</h6>
-                                <h5 class="fw-semibold">
-                                    {{ticket.submitter}}
-                                </h5>
-                            </div>
+    <div class="col-md-6">
+        <h4 class="fw-semibold mb-4">About Ticket</h4>
+        <!--Ticket Detail-->
+        <div class="card">
+            <div class="card-body">
+                <h6 class="fw-normal mb-2">Ticket Title</h6>
+                <h5 class="fw-semibold">{{ticket.title}}</h5>
+                <hr />
+                <h6 class="fw-normal mb-2">Ticket Description</h6>
+                <h5 class="fw-semibold">{{ticket.description}}</h5>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <h6 class="fw-normal mb-2">Submitted By:</h6>
+                        <h5 class="fw-semibold">{{ticket.submitter}}</h5>
+                    </div>
 
-                            <div class="col">
-                                <h6 class="fw-normal mb-2">Assigned To:</h6>
-                                <h5 class="fw-semibold">
-                                    {{ticket.developer}}
-                                </h5>
-                            </div>
+                    <div class="col">
+                        <h6 class="fw-normal mb-2">Assigned To:</h6>
+                        <h5 class="fw-semibold">{{ticket.developer}}</h5>
+                    </div>
+                </div>
+                <hr />
+                <h6 class="fw-normal mb-2">Ticket Type</h6>
+                <h5 class="fw-semibold">{{ticket.type}}</h5>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex align-items-center">
+                            <h6 class="fw-normal me-3 mb-0">Ticket Status</h6>
+                            {% include "tickets/partials/_status.html"%}
                         </div>
-                        <hr />
-                        <h6 class="fw-normal mb-2">Ticket Type</h6>
-                        <h5 class="fw-semibold">{{ticket.type}}</h5>
-                        <hr />
-                        <div class="row">
-                            <div class="col">
-                                <div class="d-flex align-items-center">
-                                    <h6 class="fw-normal me-3 mb-0">
-                                        Ticket Status
-                                    </h6>
-                                    {% include "tickets/partials/_status.html"%}
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="d-flex align-items-center">
-                                    <h6 class="fw-normal me-3 mb-0">
-                                        Ticket Priority
-                                    </h6>
-                                    <!--prettier-ignore-->
-                                    {% include "tickets/partials/_priority.html"%}
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex align-items-center">
+                            <h6 class="fw-normal me-3 mb-0">Ticket Priority</h6>
+                            <!--prettier-ignore-->
+                            {% include "tickets/partials/_priority.html"%}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <!--Comment Section-->
-                        <div class="my-3">
-                            <table class="table text-nowrap mb-0 align-middle">
-                                <thead class="text-dark fs-4">
-                                    <tr>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">
-                                                Commenter
-                                            </h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">
-                                                Comment
-                                            </h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">
-                                                Created At
-                                            </h6>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for comment in ticket.comment_set.all %}
-                                    <tr>
-                                        <td class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-1">
-                                                {{ comment.commenter}}
-                                            </h6>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal">
-                                                <a
-                                                    href=""
-                                                    class="text-dark"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#commentid{{comment.id}}"
-                                                >
-                                                    <!--prettier-ignore-->
-                                                    {{ comment.comment|truncatechars:15}}
-                                                </a>
-                                            </p>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <div
-                                                class="d-flex align-items-end justify-content-end gap-2"
-                                            >
-                                                <span
-                                                    class="badge bg-primary rounded-3 fw-semibold"
-                                                >
-                                                    <!--prettier-ignore-->
-                                                    {{ comment.created_at|timesince }} ago
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Comment Detail Model -->
-                                    <div
-                                        class="modal fade"
-                                        id="commentid{{comment.id}}"
-                                        tabindex="-1"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true"
-                                    >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5
-                                                        class="modal-title"
-                                                        id="exampleModalLabel"
-                                                    >
-                                                        Comment Details:
-                                                    </h5>
-
-                                                    <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    ></button>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                    <h5>{{comment.comment}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Add Comment-->
-                        <h4 class="mb-3">Add comment:</h4>
-                        <div class="">
-                            <form class="" action="" method="POST">
-                                {% csrf_token %} {% for field in form %}
-
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <!--Comment Section-->
+                <div class="my-3">
+                    {% for comment in ticket.comment_set.all %}
+                    <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                            <img
+                                class="rounded-circle shadow-1-strong"
+                                src="https://picsum.photos/200"
+                                alt="avatar"
+                                width="65"
+                                height="65"
+                            />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                            <div>
                                 <div
-                                    class="form-group mb-3 {% if field.errors %} errors {% endif %}"
+                                    class="d-flex justify-content-between align-items-center"
                                 >
-                                    {{ field }} {{ field.errors }}
+                                    <p class="mb-1">
+                                        <!--prettier-ignore-->
+                                        <strong> {{ comment.commenter}}</strong
+                                                >
+                                        <span class="small"
+                                            >-
+                                            <!--prettier-ignore-->
+                                            {{ comment.created_at|timesince }} ago</span
+                                        >
+                                    </p>
                                 </div>
-
-                                {% endfor %}
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary mx-1 py-1"
-                                >
-                                    Comment
-                                </button>
-                            </form>
+                                <p class="small mb-0">{{ comment.comment}}</p>
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Add Comment-->
+                <h4 class="mb-3">Add comment:</h4>
+                <div class="">
+                    <form class="" action="" method="POST">
+                        {% csrf_token %} {% for field in form %}
+
+                        <div
+                            class="form-group mb-3 {% if field.errors %} errors {% endif %}"
+                        >
+                            {{ field }} {{ field.errors }}
+                        </div>
+
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary mx-1 py-1">
+                            Comment
+                        </button>
+                    </form>
                 </div>
             </div>
-            <!--Recent Actions-->
-            <div class="col">
-                <h4 class="fw-semibold mb-4">Recent Actions</h4>
-                <div class="card">
-                    <div class="card-body">
-                        <table class="table text-nowrap mb-0 align-middle">
-                            <thead class="text-dark fs-4">
-                                <tr>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">User</h5>
-                                    </th>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">Action</h5>
-                                    </th>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">Field</h5>
-                                    </th>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">
-                                            Old value
-                                        </h5>
-                                    </th>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">
-                                            New value
-                                        </h5>
-                                    </th>
-                                    <th class="border-bottom-0">
-                                        <h5 class="fw-semibold mb-0">Date</h5>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for history in histories %}
-                                <tr>
-                                    <td class="border-bottom-0">
-                                        <p class="fw-semibold mb-1">
-                                            {{ history.user}}
-                                        </p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="fw-semibold mb-1">
-                                            {{ history.action}}
-                                        </p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="fw-semibold mb-1">
-                                            {{ history.field}}
-                                        </p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="fw-semibold mb-1">
-                                            {{ history.old_value}}
-                                        </p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="fw-semibold mb-1">
-                                            {{ history.new_value}}
-                                        </p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <div class="gap-2">
-                                            <span
-                                                class="badge bg-primary rounded-3 fw-semibold"
-                                            >
-                                                <!--prettier-ignore-->
-                                                {{ history.date|timesince }} ago
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Comment Detail Model -->
-                                <div
-                                    class="modal fade"
-                                    id="commentid{{comment.id}}"
-                                    tabindex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5
-                                                    class="modal-title"
-                                                    id="exampleModalLabel"
-                                                >
-                                                    Comment Details:
-                                                </h5>
-
-                                                <button
-                                                    type="button"
-                                                    class="btn-close"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"
-                                                ></button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <h5>{{comment.comment}}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+        </div>
+    </div>
+    <!--Recent Actions-->
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!--Recent Actions-->
+        <div class="card">
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <h5 class="card-title fw-semibold">Recent Actions</h5>
+                </div>
+                <ul class="timeline-widget position-relative mb-3">
+                    {% for history in histories %}
+                    <li
+                        class="timeline-item d-flex position-relative overflow-hidden"
+                    >
+                        <div
+                            class="timeline-time text-dark flex-shrink-0 text-end"
+                        >
+                            {{history.date|time}}
+                        </div>
+                        <div
+                            class="timeline-badge-wrap d-flex flex-column align-items-center"
+                        >
+                            <span
+                                class="timeline-badge border-2 border border-primary flex-shrink-0 my-8"
+                            ></span>
+                            <span
+                                class="timeline-badge-border d-block flex-shrink-0"
+                            ></span>
+                        </div>
+                        <div class="timeline-desc fs-3 text-dark mt-n1">
+                            {{history.field}} {{history.action}} from
+                            <strong>{{history.old_value}} </strong>to
+                            <strong>{{history.new_value}}</strong>
+                            <p>by <strong>{{history.user}}</strong></p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!--Attachments-->
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5 class="card-title fw-semibold">Attachments</h5>
+                </div>
+                <div class="input-group mb-3">
+                    <input
+                        type="file"
+                        class="form-control"
+                        id="inputGroupFile02"
+                    />
+                    <label class="input-group-text" for="inputGroupFile02"
+                        >Upload</label
+                    >
                 </div>
             </div>
         </div>

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+<!--break-->
+{% load static %}
+<!--break-->
+
+{% block title %} Users {% endblock title %}
+<!--break-->
+
+{% block subtitle %} Profile {% endblock subtitle %}
+<!--break-->
+{% block content %}
+
+<!--Update User-->
+<div class="row">
+    <div class="col-md-7">
+        <h4 class="fw-semibold mb-4">Profile</h4>
+        <div class="card">
+            <div class="card-body">
+                <h6 class="fw-normal mb-2">Username:</h6>
+                <h5 class="fw-semibold">{{user.username}}</h5>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="fw-normal mb-2">First Name:</h6>
+                        <h5 class="fw-semibold">{{user.first_name}}</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="fw-normal mb-2">Last Name:</h6>
+                        <h5 class="fw-semibold">{{user.last_name}}</h5>
+                    </div>
+                </div>
+                <hr />
+
+                <h6 class="fw-normal mb-2">Email:</h6>
+                <h5 class="fw-semibold">{{user.email}}</h5>
+                <hr />
+                <h6 class="fw-normal mb-2">Role:</h6>
+                <h5 class="fw-semibold">{{user.role}}</h5>
+                <hr />
+                <h6 class="fw-normal mb-2">Date joined:</h6>
+                <h5 class="fw-semibold">{{user.date_joined|timesince}} ago</h5>
+                <hr />
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+</div>
