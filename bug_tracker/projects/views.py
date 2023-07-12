@@ -51,7 +51,7 @@ class ProjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
     template_name = "projects/create_project.html"
     form_class = ProjectForm
     model = Project
-    success_url = "/projects"
+    success_url = "/projects/"
     success_message = "%(name)s was created successfully"
 
 

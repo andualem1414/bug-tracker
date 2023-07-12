@@ -16,18 +16,18 @@ class Ticket(models.Model):
         ("resolved", "resolved"),
         ("additional information required", "additional information required"),
     )
-    PRIORITY = {
+    PRIORITY = (
         ("None", "None"),
         ("Low", "Low"),
         ("Medium", "Medium"),
         ("High", "High"),
-    }
-    TYPE = {
+    )
+    TYPE = (
         ("Bugs/Errors", "Bugs/Errors"),
         ("Feature request", "Feature Request"),
         ("Other Comments", "Other Comments"),
         ("Traning/documents request", "Traning/documents Request"),
-    }
+    )
 
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -49,6 +49,11 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Attachment(models.Model):
+    image = models.ImageField(null=True, blank=True, upload_to="attachments/")
+    ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):

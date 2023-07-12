@@ -47,7 +47,7 @@ class UserUpdateView(
     model = User
     template_name = "users/update_user.html"
     form_class = UserUpdateForm
-    success_url = "/users"
+    success_url = "/users/"
     success_message = "User successfully Updated!!!!"
 
     def form_valid(self, form):

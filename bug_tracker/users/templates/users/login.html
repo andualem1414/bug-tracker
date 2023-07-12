@@ -49,7 +49,9 @@
                                         method="POST"
                                         action="{% url 'login' %}"
                                     >
-                                        {% csrf_token %} {% for field in form %}
+                                        {% csrf_token %}
+                                        <!--ignore-->
+                                        {% for field in form %}
                                         <div
                                             class="form-group mb-3 {% if field.errors %} errors {% endif %}"
                                         >
@@ -68,19 +70,41 @@
                                         >
                                             Login
                                         </button>
-                                        <div
-                                            class="d-flex align-items-center justify-content-center"
-                                        >
-                                            <p class="fs-4 mb-0 fw-bold">
-                                                New to Bug Tracker?
-                                            </p>
-                                            <a
-                                                class="text-primary fw-bold ms-2"
-                                                href="{% url 'register' %}"
-                                                >Create an account</a
-                                            >
-                                        </div>
                                     </form>
+                                    <form
+                                        method="POST"
+                                        action="{% url 'login' %}"
+                                    >
+                                        {% csrf_token %}
+                                        <input
+                                            type="hidden"
+                                            name="username"
+                                            value="hp"
+                                        />
+                                        <input
+                                            type="hidden"
+                                            name="password"
+                                            value="admin123"
+                                        />
+                                        <button
+                                            type="submit"
+                                            class="btn btn-success w-100 py-8 fs-4 mb-4 rounded-2"
+                                        >
+                                            Demo Admin Login
+                                        </button>
+                                    </form>
+                                    <div
+                                        class="d-flex align-items-center justify-content-center"
+                                    >
+                                        <p class="fs-4 mb-0 fw-bold">
+                                            New to Bug Tracker?
+                                        </p>
+                                        <a
+                                            class="text-primary fw-bold ms-2"
+                                            href="{% url 'register' %}"
+                                            >Create an account</a
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>

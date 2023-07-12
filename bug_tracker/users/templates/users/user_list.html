@@ -3,10 +3,10 @@
 {% load static %}
 <!--break-->
 
-{% block title %} Projects {% endblock title %}
+{% block title %} Users {% endblock title %}
 <!--break-->
 
-{% block subtitle %} Projects {% endblock subtitle %}
+{% block subtitle %} Users {% endblock subtitle %}
 
 <!--break-->
 
@@ -42,7 +42,7 @@
                             results.
                         </h5>
                     </div>
-                    <!--Search Project-->
+                    <!--Search Users-->
                     <div class="col-4">
                         <form action="{% url 'users' %}" method="GET">
                             {% csrf_token %}
@@ -51,7 +51,7 @@
                                     type="text"
                                     name="search"
                                     class="form-control"
-                                    placeholder="Search Projects..."
+                                    placeholder="Search Users..."
                                     aria-label="Search"
                                     aria-describedby="basic-addon2"
                                 />
@@ -99,7 +99,7 @@
                                         </h5>
                                     </a>
                                     <p class="fw-normal">
-                                        <small> {{user.username}}</small>
+                                        <small> {{user.email}}</small>
                                     </p>
                                 </td>
                                 <td class="border-bottom-0">

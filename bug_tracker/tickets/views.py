@@ -7,7 +7,7 @@ from auditlog.models import LogEntry
 from projects.models import Project
 from .forms import TicketForm, CommentForm
 
-from .models import Ticket
+from .models import Ticket, Attachment
 from users.models import User
 
 from django.views.generic import FormView
@@ -68,7 +68,7 @@ class TicketUpdateView(UpdateView):
     form_class = TicketForm
     model = Ticket
     context_object_name = "ticket"
-    success_url = "/tickets"
+    success_url = "/tickets/"
 
 
 class TicketDisplay(DetailView):
@@ -79,6 +79,7 @@ class TicketDisplay(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         actions = {0: "create", 1: "update", 2: "delete", 3: "Access"}
+        images = Attachment.objects.filter(ticket=kwargs["object"].id)
 
         histories = LogEntry.objects.filter(object_id=kwargs["object"].id)
         context["form"] = CommentForm()
@@ -94,7 +95,7 @@ class TicketDisplay(DetailView):
             data["new_value"] = list(changes.values())[0][1]
             data["date"] = history.timestamp
             history_list.append(data)
-
+        context["images"] = images
         context["histories"] = history_list
         return context
 
@@ -128,8 +129,24 @@ class PostComment(SingleObjectMixin, FormView):
 class TicketDetailView(View):
     def get(self, request, *args, **kwargs):
         view = TicketDisplay.as_view()
+
         return view(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         view = PostComment.as_view()
         return view(request, *args, **kwargs)
+
+
+def delete_ticket(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+    ticket.delete()
+    return redirect("projects")
+
+
+def add_image(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+
+    image = request.FILES.get("image")
+    Attachment.objects.create(ticket=ticket, image=image)
+
+    return redirect("ticket_detail", pk)

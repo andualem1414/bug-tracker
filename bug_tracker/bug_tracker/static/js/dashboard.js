@@ -200,7 +200,7 @@ $(function () {
     };
 
     const getChartData = () => {
-        fetch("/ticket_count")
+        fetch("/ticket_count/")
             .then((res) => res.json())
             .then((result) => {
                 console.log(result);
