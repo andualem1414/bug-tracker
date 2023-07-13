@@ -13,7 +13,7 @@
     ],
     "routes": [
         {
-            "src": "/static/(.*)",
+            "src": "bug_tracker/static/(.*)",
             "dest": "/static/$1"
         },
         {
