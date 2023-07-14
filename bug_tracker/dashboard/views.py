@@ -1,7 +1,11 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from tickets.models import Ticket
+from auditlog.models import LogEntry
+
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
@@ -15,7 +19,26 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        actions = {0: "create", 1: "update", 2: "delete", 3: "Access"}
+
         context["no_tickets"] = Ticket.objects.all().count()
+        histories = LogEntry.objects.filter()
+        history_list = []
+
+        for history in histories:
+            changes = json.loads(history.changes)
+            print(history.object_repr)
+            data = {}
+            data["user"] = history.actor
+            data["action"] = actions[history.action]
+            data["field"] = list(changes.keys())[0]
+            data["ticket_name"] = history.object_repr
+            data["old_value"] = list(changes.values())[0][0]
+            data["new_value"] = list(changes.values())[0][1]
+            data["date"] = history.timestamp
+            history_list.append(data)
+
+        context["histories"] = history_list[:5]
 
         return context
 
