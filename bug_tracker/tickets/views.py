@@ -83,6 +83,7 @@ class TicketDisplay(DetailView):
 
         histories = LogEntry.objects.filter(object_id=kwargs["object"].id)
         context["form"] = CommentForm()
+
         history_list = []
 
         for history in histories:
